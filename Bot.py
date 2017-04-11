@@ -2,7 +2,7 @@
 import pandas as pd
 
 # Importing the dataset
-dataset = pd.read_csv(r'C:\Users\parin\Desktop\ML_Data\Data.csv', encoding="cp437")
+#dataset = pd.read_csv(r'C:\Users\parin\Desktop\ML_Data\Data.csv', encoding="cp437")
 
 dataset_new = dataset[["screen_name","followers_count","friends_count","listedcount","favourites_count","verified","statuses_count","default_profile","default_profile_image","bot"]]
     
