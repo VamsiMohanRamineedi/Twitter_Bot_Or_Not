@@ -53,3 +53,22 @@ classifier_RF.fit(X_train, y_train)
 prediction_RF = classifier_RF.predict(X_test)
 
 accuracy_score(y_test, prediction_RF)
+
+#Naive Bayes Classifier
+
+from sklearn.naive_bayes import MultinomialNB
+classifier=MultinomialNB()
+classifier.fit(X_train, y_train)
+prediction = classifier.predict(X_test)
+
+#formatting the date
+#X[2,9] = pd.to_datetime(X[2,9], format='%Y-%m-%d')
+
+#import time
+
+#ts = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(X[:, 9],'%a %b %d %H:%M:%S +0000 %Y'))
+
+# Accuracy
+
+from sklearn.metrics import accuracy_score
+accuracy_score(y_test, prediction)
