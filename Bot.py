@@ -6,6 +6,7 @@ import re
 from sklearn.metrics import accuracy_score
 
 # Importing the dataset
+# Change the path before executing
 dataset = pd.read_csv(r'C:\Users\parin\Desktop\training_data_2_csv_UTF.csv')
 test_data = pd.read_csv(r'C:\Users\parin\Desktop\test_data_4_students.csv')
 test_data = test_data.loc[:574,:]
@@ -23,6 +24,8 @@ dataset_new = dataset[["screen_name","description","name","followers_count","fri
 dataset_new["description"] = dataset_new["description"].astype(str)
 dataset_new["name"] = dataset_new["name"].astype(str)
 for i in range(0, len(dataset_new)): 
+   # dataset_new["screen_name"][i] = re.sub("[^a-zA-Z]", " ", dataset_new["screen_name"][i])
+   # dataset_new["description"][i] = re.sub("[^a-zA-Z]", " ", dataset_new["description"][i])
     dataset_new["screen_name"][i] = dataset_new["screen_name"][i].lower()
     dataset_new["description"][i] = dataset_new["description"][i].lower()
     dataset_new["name"][i] = dataset_new["name"][i].lower()
@@ -51,7 +54,7 @@ for i in range(0, len(dataset_new)):
     X[i,2]= dataset_new["name"][i]  
 y = dataset_new.iloc[:,10].values # True results of the training set (bot field)
 
-# Selecting only required features from the training set 
+# Selecting only required features from the test set 
 test_data_new = test_data[["screen_name","description","name","followers_count","friends_count","listed_count","favorites_count","verified","statuses_count","created_at","id"]]
 test_data_new["description"] = test_data_new["description"].astype(str)
 test_data_new["name"] = test_data_new["name"].astype(str)
