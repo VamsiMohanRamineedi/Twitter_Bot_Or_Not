@@ -9,14 +9,13 @@ from sklearn.metrics import accuracy_score
 dataset = pd.read_csv(r'C:\Users\parin\Desktop\training_data_2_csv_UTF.csv')
 test_data = pd.read_csv(r'C:\Users\parin\Desktop\test_data_4_students.csv')
 test_data = test_data.loc[:574,:]
-# Importing the dataset
-dataset = pd.read_csv(r'C:\Users\ramin\OneDrive - nyu.edu\Spring 2017\Machine Learning\Project\train_data.csv', encoding="cp437")
-#descriptio_list = list(dataset["description"])
-#dataset_new=dataset["has_extended_profile"].dropna()
-dataset_new = dataset[["screen_name","followers_count","friends_count","listedcount","favourites_count","verified","statuses_count","default_profile","default_profile_image","bot"]]
     
-X = dataset_new.iloc[:, :-1].values
-#y = dataset_new.iloc[:, 9].values
+# Cleaning the data. Getting rid of the quotations 
+for i in range(0,len(dataset)):
+    if dataset['created_at'][i].startswith('"'):
+        dataset['created_at'][i] = dataset['created_at'][i][1:]
+    if dataset['created_at'][i].endswith('"'):
+        dataset['created_at'][i] = dataset['created_at'][i][0:-1]
 
                 
 # Preprocessing the screen name feature
