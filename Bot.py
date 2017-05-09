@@ -137,10 +137,29 @@ test_data_new["id"] = test_data_new["id"].astype(np.int64)
 outputRF=test_data_new[["id","bot"]]
 outputRF.to_csv('RFprediction.csv', index =False)
 
-# Decision Tree classifier
+#Decision Tree Classifier
 from sklearn.tree import DecisionTreeClassifier
 classifier_DT = DecisionTreeClassifier(criterion = "entropy", random_state=0)
-classifier_DT.fit(X_train, y_train)
-prediction_DT = classifier_DT.predict(X_test)
+classifier_DT.fit(X, y)
+prediction_DT = classifier_DT.predict(Z)
 
-accuracy_score(y_test, prediction_DT)
+test_data_new["bot"] = prediction_DT
+test_data_new["id"] = test_data_new["id"].astype(np.int64) 
+outputDT=test_data_new[["id","bot"]]
+outputDT.to_csv('DTprediction.csv', index =False)
+
+"""
+# KFOLD Cross Validation Score
+#Random Forest Classifier KFold
+from sklearn.model_selection import KFold, cross_val_score
+kf = KFold(n_splits=4, random_state=None, shuffle=False)
+from sklearn.ensemble import RandomForestClassifier
+#classifier_RF = RandomForestClassifier(n_estimators = 10, criterion = 'entropy', random_state = 0)
+print (cross_val_score(classifier_RF, X, y, cv=kf))
+
+# Decision Tree classifier KFold
+from sklearn.model_selection import KFold, cross_val_score
+kf = KFold(n_splits=4, random_state=None, shuffle=False)
+from sklearn.tree import DecisionTreeClassifier
+#classifier_DT = DecisionTreeClassifier(criterion = "entropy", random_state=0)
+print (cross_val_score(classifier_DT, X, y, cv=kf))
