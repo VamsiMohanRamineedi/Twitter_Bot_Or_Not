@@ -116,16 +116,15 @@ for i in range(len(test_data_new["created_at"])):
     m[i] = sct[i]/m[i]
     Z[i,9] = m[i]
     
-# Categorizing verified, default_profile, default_profile_image features
+
+# Encode categorical values for Verified field
 from sklearn.preprocessing import LabelEncoder
 labelencoder_X = LabelEncoder()
-X[:,5]=labelencoder_X.fit_transform(X[:,5])
 X[:,7]=labelencoder_X.fit_transform(X[:,7])
-X[:,8]=labelencoder_X.fit_transform(X[:,8])
+Z[:,7]=labelencoder_X.fit_transform(Z[:,7])
 
-# Splitting the dataset into the Training set and Test set
-from sklearn.cross_validation import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+#N = X[:,[0,1,2,3,4,5,6,7,9]]  #Different slices of training set to check accuracy
+#M = Z[:,[0,1,2,3,4,5,6,7,9]]
 
 # Decision Tree classifier
 from sklearn.tree import DecisionTreeClassifier
