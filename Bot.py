@@ -126,6 +126,17 @@ Z[:,7]=labelencoder_X.fit_transform(Z[:,7])
 #N = X[:,[0,1,2,3,4,5,6,7,9]]  #Different slices of training set to check accuracy
 #M = Z[:,[0,1,2,3,4,5,6,7,9]]
 
+#Random Forest Classifier
+from sklearn.ensemble import RandomForestClassifier
+classifier_RF = RandomForestClassifier(n_estimators = 10, criterion = 'entropy', random_state = 0)
+classifier_RF.fit(X, y)
+prediction_RF = classifier_RF.predict(Z)
+
+test_data_new["bot"] = prediction_RF
+test_data_new["id"] = test_data_new["id"].astype(np.int64) 
+outputRF=test_data_new[["id","bot"]]
+outputRF.to_csv('RFprediction.csv', index =False)
+
 # Decision Tree classifier
 from sklearn.tree import DecisionTreeClassifier
 classifier_DT = DecisionTreeClassifier(criterion = "entropy", random_state=0)
@@ -133,30 +144,3 @@ classifier_DT.fit(X_train, y_train)
 prediction_DT = classifier_DT.predict(X_test)
 
 accuracy_score(y_test, prediction_DT)
-
-#Random Forest Classifier
-from sklearn.ensemble import RandomForestClassifier
-classifier_RF = RandomForestClassifier(n_estimators = 10, criterion = 'entropy', random_state = 0)
-classifier_RF.fit(X_train, y_train)
-prediction_RF = classifier_RF.predict(X_test)
-
-accuracy_score(y_test, prediction_RF)
-
-#Naive Bayes Classifier
-
-from sklearn.naive_bayes import MultinomialNB
-classifier=MultinomialNB()
-classifier.fit(X_train, y_train)
-prediction = classifier.predict(X_test)
-
-#formatting the date
-#X[2,9] = pd.to_datetime(X[2,9], format='%Y-%m-%d')
-
-#import time
-
-#ts = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(X[:, 9],'%a %b %d %H:%M:%S +0000 %Y'))
-
-# Accuracy
-
-from sklearn.metrics import accuracy_score
-accuracy_score(y_test, prediction)
