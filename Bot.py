@@ -18,19 +18,70 @@ for i in range(0,len(dataset)):
         dataset['created_at'][i] = dataset['created_at'][i][0:-1]
 
                 
-# Preprocessing the screen name feature
-#dataset_new["screen_name_bool"]=0
-import re
+# Selecting only required features from the training set 
+dataset_new = dataset[["screen_name","description","name","followers_count","friends_count","listedcount","favourites_count","verified","statuses_count","created_at","bot"]]
+dataset_new["description"] = dataset_new["description"].astype(str)
+dataset_new["name"] = dataset_new["name"].astype(str)
+for i in range(0, len(dataset_new)): 
+    dataset_new["screen_name"][i] = dataset_new["screen_name"][i].lower()
+    dataset_new["description"][i] = dataset_new["description"][i].lower()
+    dataset_new["name"][i] = dataset_new["name"][i].lower()
+
+#Training set
+# If screen_name, name and description features have the word bot in it, it is assigned the value 1 else 0. 
+X = dataset_new.iloc[:, :-1].values       
 pattern=r"bot"
 for i in range(0, len(dataset_new)):
     if re.search(pattern, X[i,0]):
-        dataset_new["screen_name"][i]=1
-        
+        dataset_new["screen_name"][i]=1       
     else:
         dataset_new["screen_name"][i]=0
     X[i,0]= dataset_new["screen_name"][i]
+    
+    if re.search(pattern, X[i,1]):
+        dataset_new["description"][i]=1       
+    else:
+        dataset_new["description"][i]=0
+    X[i,1]= dataset_new["description"][i]
 
-y = dataset_new.iloc[:, 9].values
+    if re.search(pattern, X[i,2]):
+        dataset_new["name"][i]=1       
+    else:
+        dataset_new["name"][i]=0
+    X[i,2]= dataset_new["name"][i]  
+y = dataset_new.iloc[:,10].values # True results of the training set (bot field)
+
+# Selecting only required features from the training set 
+test_data_new = test_data[["screen_name","description","name","followers_count","friends_count","listed_count","favorites_count","verified","statuses_count","created_at","id"]]
+test_data_new["description"] = test_data_new["description"].astype(str)
+test_data_new["name"] = test_data_new["name"].astype(str)
+
+#Test set
+# If screen_name, name and description features have the word bot in it, it is assigned the value 1 else 0.                    
+for i in range(0, len(test_data_new)):
+    test_data_new["screen_name"][i] = test_data_new["screen_name"][i].lower()
+    test_data_new["description"][i] = test_data_new["description"][i].lower()
+    test_data_new["name"][i] = test_data_new["name"][i].lower()
+Z = test_data_new.iloc[:, :-1].values
+                      
+for i in range(0, len(test_data_new)):
+    if re.search(pattern, Z[i,0]):
+        test_data_new["screen_name"][i]=1       
+    else:
+        test_data_new["screen_name"][i]=0
+    Z[i,0]= test_data_new["screen_name"][i]
+      
+    if re.search(pattern, Z[i,1]):
+        test_data_new["description"][i]=1    
+    else:
+        test_data_new["description"][i]=0
+    Z[i,1]= test_data_new["description"][i]
+    
+    if re.search(pattern, Z[i,2]):
+        test_data_new["name"][i]=1  
+    else:
+        test_data_new["name"][i]=0
+    Z[i,2]= test_data_new["name"][i]
 
 # Categorizing verified, default_profile, default_profile_image features
 from sklearn.preprocessing import LabelEncoder
