@@ -1,10 +1,14 @@
-# Importing the libraries
-#import numpy as np
+#Import the libraries
 import pandas as pd
 import datetime
 import numpy as np
 import re
 from sklearn.metrics import accuracy_score
+
+# Importing the dataset
+dataset = pd.read_csv(r'C:\Users\parin\Desktop\training_data_2_csv_UTF.csv')
+test_data = pd.read_csv(r'C:\Users\parin\Desktop\test_data_4_students.csv')
+test_data = test_data.loc[:574,:]
 # Importing the dataset
 dataset = pd.read_csv(r'C:\Users\ramin\OneDrive - nyu.edu\Spring 2017\Machine Learning\Project\train_data.csv', encoding="cp437")
 #descriptio_list = list(dataset["description"])
