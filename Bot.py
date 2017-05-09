@@ -163,3 +163,25 @@ kf = KFold(n_splits=4, random_state=None, shuffle=False)
 from sklearn.tree import DecisionTreeClassifier
 #classifier_DT = DecisionTreeClassifier(criterion = "entropy", random_state=0)
 print (cross_val_score(classifier_DT, X, y, cv=kf))
+
+#Accuracy Score
+# Splitting the dataset into the Training set and Test set
+from sklearn.cross_validation import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
+
+#Random Forest Classifier
+from sklearn.ensemble import RandomForestClassifier
+classifier_RF = RandomForestClassifier(n_estimators = 10, criterion = 'entropy', random_state = 0)
+classifier_RF.fit(X_train, y_train)
+prediction_RF = classifier_RF.predict(X_test)
+print("Random Forest")
+print(accuracy_score(y_test, prediction_RF))
+
+#Decision Tree Classifier
+from sklearn.tree import DecisionTreeClassifier
+classifier_DT = DecisionTreeClassifier(criterion = "entropy", random_state=0)
+classifier_DT.fit(X_train, y_train)
+prediction_DT = classifier_DT.predict(X_test)
+print("Decision Tree")
+print(accuracy_score(y_test, prediction_DT))
+"""
