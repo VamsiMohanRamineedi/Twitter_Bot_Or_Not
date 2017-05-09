@@ -56,6 +56,21 @@ test_data_new = test_data[["screen_name","description","name","followers_count",
 test_data_new["description"] = test_data_new["description"].astype(str)
 test_data_new["name"] = test_data_new["name"].astype(str)
 
+# Dealing with missing values.
+for i in range(0, len(test_data_new)):
+    if test_data_new["followers_count"][i] == "None":
+        test_data_new["followers_count"][i] = 0
+    if test_data_new["friends_count"][i] == "None":
+        test_data_new["friends_count"][i] = 0
+    if test_data_new["listed_count"][i] == "None":
+        test_data_new["listed_count"][i] = 0   
+    if test_data_new["favorites_count"][i] == "None":
+        test_data_new["favorites_count"][i] = 0 
+    if test_data_new["statuses_count"][i] == "None":
+        test_data_new["statuses_count"][i] = 0
+    if test_data_new["verified"][i] == "None":
+        test_data_new["verified"][i] = 'FALSE'
+        
 #Test set
 # If screen_name, name and description features have the word bot in it, it is assigned the value 1 else 0.                    
 for i in range(0, len(test_data_new)):
@@ -82,7 +97,25 @@ for i in range(0, len(test_data_new)):
     else:
         test_data_new["name"][i]=0
     Z[i,2]= test_data_new["name"][i]
-
+    
+# Finds ratio of statuses_count to the number of days since account creation for training and test set
+dataset['created_at'] = pd.to_datetime(dataset['created_at'])
+sc = dataset['statuses_count']
+l = [None] * len(dataset['created_at'])
+today = datetime.datetime.today()
+for i in range(len(dataset['created_at'])):
+    l[i] = (abs(dataset['created_at'][i] - today)).days
+    l[i] = sc[i]/l[i]
+    X[i,9] = l[i] 
+        
+test_data_new["created_at"]  = pd.to_datetime(test_data_new["created_at"])
+sct = test_data_new['statuses_count']
+m = [None] * len(test_data_new["created_at"])
+for i in range(len(test_data_new["created_at"])):
+    m[i] = (abs(test_data_new["created_at"][i] - today)).days
+    m[i] = sct[i]/m[i]
+    Z[i,9] = m[i]
+    
 # Categorizing verified, default_profile, default_profile_image features
 from sklearn.preprocessing import LabelEncoder
 labelencoder_X = LabelEncoder()
