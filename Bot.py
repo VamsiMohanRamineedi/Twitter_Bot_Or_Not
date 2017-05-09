@@ -1,8 +1,10 @@
 # Importing the libraries
 #import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
-
+import datetime
+import numpy as np
+import re
+from sklearn.metrics import accuracy_score
 # Importing the dataset
 dataset = pd.read_csv(r'C:\Users\ramin\OneDrive - nyu.edu\Spring 2017\Machine Learning\Project\train_data.csv', encoding="cp437")
 #descriptio_list = list(dataset["description"])
