@@ -150,6 +150,7 @@ test_data_new["bot"] = prediction_DT
 test_data_new["id"] = test_data_new["id"].astype(np.int64) 
 outputDT=test_data_new[["id","bot"]]
 outputDT.to_csv('DTprediction.csv', index =False)
+print("Accuracy Score for this predicti is:", accuracy_score(outputDT, test_data_new["bot"]))
 
 """
 # KFOLD Cross Validation Score
