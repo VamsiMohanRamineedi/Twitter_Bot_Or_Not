@@ -38,5 +38,5 @@ Note: Accuracy is chosen as the evaluation metric.
 
 > This classifier achieved 97.22% accuracy when competed in [Kaggle](https://www.kaggle.com/c/twitter-bot-classification/leaderboard).
 
-*See the [project report](https://github.com/VamsiMohanRamineedi/Twitter_Bot_Or_Not/blob/master/Project_Report.pdf) and [presentation video](https://www.youtube.com/watch?v=aK4DKJyitcA&feature=youtu.be).***_Make sure to watch it at 1.25x speed or more._**
+*See the [project report](https://github.com/VamsiMohanRamineedi/Twitter_Bot_Or_Not/blob/master/Project_Report.pdf) and [presentation video](https://www.youtube.com/watch?v=aK4DKJyitcA&feature=youtu.be).* **_Make sure to watch it at 1.25x speed or more._**
 
